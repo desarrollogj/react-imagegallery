@@ -1,3 +1,7 @@
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
 .mainPage {
   display: flex;
   align-items: center;
@@ -29,7 +33,7 @@
   padding: 15px;
 }
 
-menu__link {
+.menu__link {
   text-decoration: none;
   color: black;
   padding: 10px;
