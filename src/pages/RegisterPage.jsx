@@ -5,7 +5,7 @@ import {
   MDBBtn,
 } from 'mdb-react-ui-kit';
 import Swal from 'sweetalert2';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm'
 import { useAuthStore } from '../hooks/useAuthStore';
@@ -60,6 +60,10 @@ export const RegisterPage = () => {
     })
     navigate('/')
   }
+
+  useEffect(() => {
+    document.title = "Registro de usuario"
+  }, [])
 
   return (
     <section className='pageContainer__register mainPage'>
