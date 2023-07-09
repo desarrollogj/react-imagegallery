@@ -1,16 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { store } from './store/store.js'
 import GalleryApp from './GalleryApp.jsx'
-import { UserProvider } from './context/UserProvider.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <UserProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <GalleryApp />
       </BrowserRouter>
-    </UserProvider>
+    </Provider>
   </React.StrictMode>,
 )

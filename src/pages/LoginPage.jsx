@@ -3,10 +3,10 @@ import {
   MDBBtn
 } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useForm } from '../hooks/useForm'
-import { UserContext } from '../context/UserContext'
+import { useAuthStore } from '../hooks/useAuthStore'
 import { InputLabel } from '../components/InputLabel'
 
 const loginFormFields = {
@@ -15,13 +15,13 @@ const loginFormFields = {
 }
 
 export const LoginPage = () => {
-  const { setUser } = useContext(UserContext)
-  const navigate = useNavigate()
+  const { startLogin } = useAuthStore()
+  const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields)
   const [invalidForm, setInvalidForm] = useState({
     invalidEmail: false,
     invalidPassword: false
   })
-  const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields)
+  const navigate = useNavigate()
 
   const loginSubmit = (event) => {
     event.preventDefault()
@@ -42,30 +42,29 @@ export const LoginPage = () => {
     } else if (loginPassword.length < 5) {
       Swal.fire({
         title: 'Error!',
-        text: 'La contraseña tiene que tener como minimo 5 caracteres',
+        text: 'La contraseña debe tener al menos 5 caracteres',
         icon: 'error',
         confirmButtonText: 'Ok'
       })
       return
     }
 
-    const data = {
+    startLogin({
       email: loginEmail,
       password: loginPassword
-    }
+    })
 
-    setUser(data)
     navigate('/')
   }
 
   return (
     <section className='pageContainer__login mainPage'>
       <form className='loginForm' onSubmit={loginSubmit}>
-        <InputLabel text="Usuario" state={invalidForm.invalidEmail}></InputLabel>
-        <MDBInput className='mb-4 fondoBlanco' type='email' id='form1Example1' label='Ingrese su mail' name='loginEmail' value={loginEmail} onChange={onLoginInputChange} />
+        <InputLabel text="Nombre de usuario" state={invalidForm.invalidEmail}></InputLabel>
+        <MDBInput className='mb-4 fondoBlanco' type='email' id='loginFormEmail' label='Ingrese su mail' name='loginEmail' value={loginEmail} onChange={onLoginInputChange} />
         <InputLabel text="Contraseña" state={invalidForm.invalidPassword}></InputLabel>
-        <MDBInput className='mb-4 fondoBlanco' type='password' id='form1Example2' label='Ingrese su contraseña' name='loginPassword' value={loginPassword} onChange={onLoginInputChange} />
-        <p className='login__inputText'>(<span>*</span>) Los puntos son obligatorios</p>
+        <MDBInput className='mb-4 fondoBlanco' type='password' id='loginFormPassword' label='Ingrese su contraseña' name='loginPassword' value={loginPassword} onChange={onLoginInputChange} />
+        <p className='login__inputText'>(<span>*</span>) Campos obligatorios</p>
         <MDBBtn type='submit' block>
           Iniciar Sesión
         </MDBBtn>

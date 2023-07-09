@@ -10,16 +10,16 @@ import {
   MDBCollapse,
   MDBNavbarItem
 } from 'mdb-react-ui-kit';
-import { UserContext } from '../context/UserContext';
+import { useAuthStore } from '../hooks/useAuthStore';
 
 export const Menu = () => {
-  const { user } = useContext(UserContext)
+  const { user } = useAuthStore()
   const [showNavSecond, setShowNavSecond] = useState(false);
 
   return (
     <MDBNavbar expand='lg' light bgColor='light'>
       <MDBContainer fluid>
-        <MDBNavbarBrand href='#'>Bienvenido, {user.email}</MDBNavbarBrand>
+        <MDBNavbarBrand href='#'>Bienvenido, {user.email || "Anónimo"}</MDBNavbarBrand>
         <MDBNavbarToggler
           aria-expanded='false'
           aria-label='Toggle navigation'
