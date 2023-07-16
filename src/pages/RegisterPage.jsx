@@ -6,7 +6,7 @@ import {
 } from 'mdb-react-ui-kit';
 import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm'
 import { useAuthStore } from '../hooks/useAuthStore';
 import { ErrorLabel } from '../components/ErrorLabel'
@@ -88,6 +88,7 @@ export const RegisterPage = () => {
         <MDBBtn type='submit' className='mb-4' block>
           Registrarse
         </MDBBtn>
+        <p className="mt-2">¿Ya te registraste? <Link to="/auth/login">Inicia sesión</Link></p>
       </form>
     </section>
   )

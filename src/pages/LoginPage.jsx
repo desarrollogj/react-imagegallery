@@ -2,7 +2,7 @@ import {
   MDBInput,
   MDBBtn
 } from 'mdb-react-ui-kit';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useForm } from '../hooks/useForm'
 import { useAuthStore } from '../hooks/useAuthStore'
@@ -57,6 +57,7 @@ export const LoginPage = () => {
         <MDBBtn type='submit' block>
           Iniciar Sesión
         </MDBBtn>
+        <p className="mt-2">¿Aun no te registraste? <Link to="/auth/register">¡Registrate!</Link></p>  
       </form>
     </section>
   )

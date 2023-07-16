@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { createErrorMessage, onLogin, onLogout } from "../store/auth/authSlice";
+import { createErrorMessage, onLogin, onLogout, onChecking } from "../store/auth/authSlice";
+import userAPI from "../api/userApi"
 
 export const useAuthStore = () => {
     const { status, user, errorMessage } = useSelector(state => state.auth)
@@ -7,8 +8,17 @@ export const useAuthStore = () => {
 
     const startLogin = async ({ email, password }) => {
         try {
-            const data = { email, password }
+            dispatch(onChecking())
+
+            const user = {
+                email,
+                password
+            }
+            const { data } = await userAPI.post('/login', user)
+            data.images=[]
+
             dispatch(onLogin(data))
+
             const jsonData = await JSON.stringify(data)
             localStorage.setItem('user', jsonData)
         } catch (error) {
@@ -21,14 +31,20 @@ export const useAuthStore = () => {
 
     const startRegister = async ({ name, surname, email, password }) => {
         try {
-            const data = { name, surname, email, password }
+            dispatch(onChecking())
+
+            const user = { name, surname, email, password }
+            const { data } = await userAPI.post('/register', user)
+            data.images=[]
+
             dispatch(onLogin(data))
+
             const jsonData = await JSON.stringify(data)
             localStorage.setItem('user', jsonData)
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'))
             setTimeout(() => {
-                dispatch(crearErrorMessage())
+                dispatch(createErrorMessage())
             }, 10);
         }
     }
@@ -44,12 +60,13 @@ export const useAuthStore = () => {
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'))
             setTimeout(() => {
-                dispatch(crearErrorMessage())
+                dispatch(createErrorMessage())
             }, 10);
         }
     }
 
     const startLogout = async () => {
+        dispatch(onChecking())
         localStorage.clear()
         dispatch(onLogout())
     }

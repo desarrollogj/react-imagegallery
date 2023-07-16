@@ -13,8 +13,11 @@ import {
 import { useAuthStore } from '../hooks/useAuthStore';
 
 export const Menu = () => {
-  const { user } = useAuthStore()
+  const { user, startLogout } = useAuthStore()
   const [showNavSecond, setShowNavSecond] = useState(false);
+  const onLogout = () => {
+    startLogout()
+  }
 
   return (
     <MDBNavbar expand='lg' light bgColor='light'>
@@ -33,13 +36,7 @@ export const Menu = () => {
               <Link className='menu__link' to='/'>Gallery </Link>
             </MDBNavbarItem>
             <MDBNavbarItem>
-              <Link className='menu__link' to='/image'>Ver Imagen</Link>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
-              <Link className='menu__link' to='/auth/register'>Registrarse</Link>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
-              <Link className='menu__link' to='/auth/login'>Iniciar Sesión</Link>
+              <Link className='menu__link' onClick={onLogout}>Cerrar Sesión</Link>
             </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>

@@ -1,18 +1,24 @@
-import { Image } from './Image';
-import imageData from '../data/images.json'
 import { useEffect, useState } from 'react';
+import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
+import { useAuthStore } from "../hooks/useAuthStore";
+import { useImageStore } from "../hooks/useImageStore";
+import { Image } from './Image';
 import { Column } from './Column';
 
 export const Gallery2 = () => {
+  const { user } = useAuthStore()
   const [columns, setColumns] = useState([])
+  const [statusForm, setStatusForm] = useState(false);
   const [imagesData, setImagesData] = useState(<></>)
+  const { images: imageList, getAllImages } = useImageStore()
 
-  const loadImages = () => {
+  const loadImages = (imageData) => {
     let images = []
     let i = 0
     imageData.forEach(data => {
       images.push(<Image
-        key={i}
+        key={i} 
+        id={data.id} 
         image={data.src}
         alt={data.alt} />)
       i++
@@ -26,25 +32,36 @@ export const Gallery2 = () => {
       <>
         <Column images={columns.slice(0, imgCount)}></Column>
         <Column images={columns.slice(imgCount, imgCount * 2)}></Column>
-        <Column images={columns.slice(imgCount * 2, columns.length - 1)}></Column>
+        <Column images={columns.slice(imgCount * 2, columns.length)}></Column>
       </>
     )
   }
-
-  useEffect(() => {
-    const images = loadImages()
-    setColumns(images)
-    //console.log(columnsData);
-  }, [])
 
   useEffect(() => {
     generateImages()
     //console.log(columnsData);
   }, [columns])
 
+  useEffect(() => {
+    getAllImages(user.email).then((imageList) => {
+      const images = loadImages(imageList)
+      setColumns(images)
+    })
+  }, [statusForm])
+
   return (
-    <div className="row galleryImage">
-      {imagesData}
-    </div >
+    <section className="galleryComponent">
+      <div className="row galleryImage">
+        {imagesData}
+      </div >
+      <MDBBtn type='button'
+        className='btnAddImage'
+        onClick={() => {
+          setStatusForm(true)
+        }}
+        block>
+        <MDBIcon fas icon="upload" />
+      </MDBBtn>
+    </section>
   )
 }
