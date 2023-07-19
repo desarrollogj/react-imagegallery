@@ -1,0 +1,6 @@
+#Modo de uso de VITE
+VITE_MODE=
+# Link de nuestra API a nuestra nube de Cloudinary
+VITE_CLOUDINARY_URL=
+# Link de nuestra API para almacenar usuarios
+VITE_API_URL=
