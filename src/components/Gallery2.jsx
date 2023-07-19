@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import { useAuthStore } from "../hooks/useAuthStore";
 import { useImageStore } from "../hooks/useImageStore";
+import { AddImageForm } from "./AddImageForm";
 import { Image } from './Image';
 import { Column } from './Column';
 
@@ -62,6 +63,7 @@ export const Gallery2 = () => {
         block>
         <MDBIcon fas icon="upload" />
       </MDBBtn>
+      <AddImageForm status={statusForm} setStatus={setStatusForm} />
     </section>
   )
 }
