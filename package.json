@@ -1,5 +1,5 @@
 {
-  "name": "gallery-app-gusj",
+  "name": "imagegallery",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
@@ -15,6 +16,7 @@
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
+    "gh-pages": "^5.0.0",
     "mdb-react-ui-kit": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
