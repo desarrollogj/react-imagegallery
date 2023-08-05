@@ -10,7 +10,7 @@ export const authenticatedState = {
         uid: '123',
         name: "Testing",
         surname: "User",
-        email: "testing_user@email.com.ar",
+        email: "testinggus@test.com.ar",
     },
     images: [],
     errorMessage: undefined

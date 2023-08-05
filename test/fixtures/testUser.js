@@ -2,6 +2,6 @@ export const testUserCredentials = {
     uid: '123',
     name: "Testing",
     surname: "User",
-    email: "testing_user@email.com.ar",
-    password: "password123"
+    email: "testinggus@test.com.ar",
+    password: "testinggus"
 }
